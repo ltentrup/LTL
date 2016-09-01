@@ -40,9 +40,9 @@ public enum LTLToken: CustomStringConvertible, Equatable {
         case .Not:
             return "!"
         case .Or:
-            return "|"
+            return "||"
         case .And:
-            return "&"
+            return "&&"
         case .Implies:
             return "->"
         case .Equivalent:
