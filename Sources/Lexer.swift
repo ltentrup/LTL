@@ -318,7 +318,9 @@ struct LTLLexer {
         case CharacterSet.lowercaseLetters:
             var proposition: String = String(scanner.current())
             scanner.next()
-            while !scanner.finished() && CharacterSet.alphanumerics.contains(scanner.current()) {
+            var allowedCharacters = CharacterSet.alphanumerics
+            allowedCharacters.insert("_")
+            while !scanner.finished() && allowedCharacters.contains(scanner.current()) {
                 proposition.append(String(scanner.current()))
                 scanner.next()
             }

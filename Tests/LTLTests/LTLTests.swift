@@ -31,6 +31,12 @@ class LTLTests: XCTestCase {
     func testMissingParenthesis() {
         XCTAssertThrowsError(try LTL.parse(fromString: "(a"))
     }
+    
+    func testPropositionsWithUnderscore() {
+        let parsed = try! LTL.parse(fromString: "(a_1)")
+        let expected = LTL.Proposition("a_1")
+        XCTAssert(parsed == expected)
+    }
 
 
     static var allTests : [(String, (LTLTests) -> () throws -> Void)] {
@@ -39,6 +45,7 @@ class LTLTests: XCTestCase {
             ("testSimpleParenthesis", testSimpleParenthesis),
             ("testBinaryOperator", testBinaryOperator),
             ("testMissingParenthesis", testMissingParenthesis),
+            ("testPropositionsWithUnderscore", testPropositionsWithUnderscore)
         ]
     }
 }
