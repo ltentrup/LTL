@@ -35,4 +35,21 @@ public enum LTL: CustomStringConvertible, Equatable {
         var parser = LTLParser(lexer: lexer)
         return try parser.parse()
     }
+    
+    fileprivate func _toNegationNormalForm(negated: Bool) -> LTL {
+        switch self {
+        case .Proposition(_):
+            return negated ? .UnaryOperator(.Not, self) : self
+        case .UnaryOperator(.Not, let scope):
+            return scope._toNegationNormalForm(negated: !negated)
+        case .UnaryOperator(let op, let scope):
+            return .UnaryOperator(negated ? op.negated : op, scope._toNegationNormalForm(negated: negated))
+        case .BinaryOperator(let op, let lhs, let rhs):
+            return .BinaryOperator(negated ? op.negated : op, lhs._toNegationNormalForm(negated: negated), rhs._toNegationNormalForm(negated: negated))
+        }
+    }
+    
+    var nnf: LTL {
+        return self._toNegationNormalForm(negated: false)
+    }
 }

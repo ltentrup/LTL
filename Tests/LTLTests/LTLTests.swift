@@ -6,24 +6,24 @@ class LTLTests: XCTestCase {
         let ltlString = "GFa"
         let parsed = try! LTL.parse(fromString: ltlString)
         let expected = LTL.UnaryOperator(.Globally, LTL.UnaryOperator(.Eventually, .Proposition("a")))
-        XCTAssert(parsed == expected)
+        XCTAssertEqual(parsed, expected)
     }
     
     func testSimpleParenthesis() {
         let parsed = try! LTL.parse(fromString: "(a)")
         let expected = LTL.Proposition("a")
-        XCTAssert(parsed == expected)
+        XCTAssertEqual(parsed, expected)
     }
     
     func testBinaryOperator() {
         let parsed = try! LTL.parse(fromString: "(a && b)")
         let expected = LTL.BinaryOperator(.And, .Proposition("a"), .Proposition("b"))
-        XCTAssert(parsed == expected)
+        XCTAssertEqual(parsed, expected)
         
         let alternative1 = try! LTL.parse(fromString: "(a & b)")
-        XCTAssert(parsed == alternative1)
+        XCTAssertEqual(parsed, alternative1)
         let alternative2 = try! LTL.parse(fromString: "(a /\\ b)")
-        XCTAssert(parsed == alternative2)
+        XCTAssertEqual(parsed, alternative2)
         
         XCTAssertThrowsError(try LTL.parse(fromString: "(a &&& b)"))
     }
@@ -35,7 +35,13 @@ class LTLTests: XCTestCase {
     func testPropositionsWithUnderscore() {
         let parsed = try! LTL.parse(fromString: "(a_1)")
         let expected = LTL.Proposition("a_1")
-        XCTAssert(parsed == expected)
+        XCTAssertEqual(parsed, expected)
+    }
+    
+    func testNNF() {
+        let parsed = try! LTL.parse(fromString: "!(a & b)")
+        let expected = try! LTL.parse(fromString: "!a | !b")
+        XCTAssertEqual(parsed.nnf, expected)
     }
 
 

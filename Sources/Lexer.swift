@@ -151,6 +151,32 @@ public enum LTLToken: CustomStringConvertible, Equatable {
             return false
         }
     }
+    
+    var negated: LTLToken {
+        switch self {
+        case .True:
+            return .False
+        case .False:
+            return .True
+        case .Or:
+            return .And
+        case .And:
+            return .Or
+        case .Next:
+            return .Next
+        case .Until:
+            return .Release
+        case .Release:
+            return .Until
+        case .Eventually:
+            return .Globally
+        case .Globally:
+            return .Eventually
+        default:
+            assert(false)
+            return .EOI
+        }
+    }
 }
 
 func ~= (pattern: CharacterSet, value: UnicodeScalar) -> Bool {
