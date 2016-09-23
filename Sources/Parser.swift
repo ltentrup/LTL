@@ -41,6 +41,12 @@ struct LTLParser {
         case .Proposition(let name):
             current = try lexer.next()
             return .Proposition(name)
+        case .True:
+            current = try lexer.next()
+            return .Literal(true)
+        case .False:
+            current = try lexer.next()
+            return .Literal(false)
         case .LParen:
             current = try lexer.next()
             let expr = try parseExpression(minPrecedence: LTLOperatorPrecedence.min)
