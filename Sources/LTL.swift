@@ -56,7 +56,7 @@ public enum LTL: CustomStringConvertible, Equatable {
         }
     }
     
-    var nnf: LTL {
+    public var nnf: LTL {
         return self._toNegationNormalForm(negated: false)
     }
     
@@ -81,7 +81,7 @@ public enum LTL: CustomStringConvertible, Equatable {
         }
     }
     
-    var normalized: LTL {
+    public var normalized: LTL {
         return self._normalize()
     }
 }
