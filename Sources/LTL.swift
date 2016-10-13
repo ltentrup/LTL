@@ -66,6 +66,13 @@ public enum LTL: CustomStringConvertible, Equatable {
             return .BinaryOperator(.Or,
                                    .UnaryOperator(.Not, lhs._normalize()),
                                    rhs._normalize())
+        case .BinaryOperator(.Equivalent, let lhs, let rhs):
+            let normalizedLhs = lhs._normalize()
+            let normalizedRhs = rhs._normalize()
+            return .BinaryOperator(.Or,
+                                   .BinaryOperator(.And, normalizedLhs, normalizedRhs),
+                                   .BinaryOperator(.And, .UnaryOperator(.Not, normalizedLhs), .UnaryOperator(.Not, normalizedRhs) )
+            )
         case .UnaryOperator(.Eventually, let scope):
             return .BinaryOperator(.Until, .Literal(true), scope._normalize())
         case .UnaryOperator(.Globally, let scope):

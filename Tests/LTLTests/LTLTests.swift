@@ -56,6 +56,12 @@ class LTLTests: XCTestCase {
         XCTAssertEqual(parsed.normalized, expected)
     }
     
+    func testNormalizeEquality() {
+        let parsed = try! LTL.parse(fromString: "a <-> b")
+        let expected = try! LTL.parse(fromString: "(a & b) | (!a & !b)")
+        XCTAssertEqual(parsed.normalized, expected)
+    }
+    
     static var allTests : [(String, (LTLTests) -> () throws -> Void)] {
         return [
             ("testSimple", testSimple),
