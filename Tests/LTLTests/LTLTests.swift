@@ -68,7 +68,11 @@ class LTLTests: XCTestCase {
             ("testSimpleParenthesis", testSimpleParenthesis),
             ("testBinaryOperator", testBinaryOperator),
             ("testMissingParenthesis", testMissingParenthesis),
-            ("testPropositionsWithUnderscore", testPropositionsWithUnderscore)
+            ("testPropositionsWithUnderscore", testPropositionsWithUnderscore),
+            ("testNNF", testNNF),
+            ("testNormalizeEventually", testNormalizeEventually),
+            ("testNormalizeGlobally", testNormalizeGlobally),
+            ("testNormalizeEquality", testNormalizeEquality)
         ]
     }
 }
